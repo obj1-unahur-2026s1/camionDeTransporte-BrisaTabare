@@ -1,5 +1,7 @@
-import camion.*
 import cosas.*
+import camion.*
+import camion2.*
+import cosas2.*
 
 describe "testCamion" {
   method initialize(){
@@ -8,7 +10,10 @@ describe "testCamion" {
     bateria.cargarYDescargarMisiles() //ponr ytru
     paqueteDeLadrillos.cambiarCantidad(80)
     embalaje.cambiarLoQueEnvuelve(paqueteDeLadrillos)
-    camion.cargarCosas([bumblebee, arena, bateria, embalaje])
+    camion.cargarCosa(bumblebee)
+    camion.cargarCosa(bateria)
+    camion.cargarCosa(embalaje)
+    camion.cargarCosa(arena)
   }
 
   test "test peso" {
@@ -16,7 +21,7 @@ describe "testCamion" {
     //arena = 150
     //bateria =300
     //embalaje= 160
-    assert.equals(1000 + 800 + 150 + 900 + 160, camion.peso())
+    assert.equals(1000 + 800 + 140 + 300 + 160, camion.peso())
   }
 
   test "test pesos pares" {
@@ -24,5 +29,12 @@ describe "testCamion" {
     assert.that(camion.todosLosPesosSonPares())
   }
 
+  test "la cantidad total de bultos cargads en e camion es de "{
+    //bumblebee ocupa 2 
+    //arena ocupa 1
+    //bateria 2
+    //embalaje 2
+    assert.equals(7, camion.cantidadTotalDeBultos())
+  }
 
 }

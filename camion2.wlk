@@ -1,10 +1,17 @@
-import cosas.*
+import cosas2.*
 object camion {
     const cosasCargadas = []
 
-    method cargarCosa (cosa) { cosasCargadas.add(cosa)}
+    method cargarCosa (cosa) {
+         cosasCargadas.add(cosa)
+        cosa.consecuenciaDeLaCarga()     
+    }
     method descargarCosa(cosa) { cosasCargadas.remove(cosa) }
-    method cargarCosas(listaDecosas) {cosasCargadas.addAll(listaDecosas)}
+    //method cargarCosas(listaDecosas) {cosasCargadas.addAll(listaDecosas)}
+
+    method cargarCosas(listaDeCosas) {
+      listaDeCosas.forEach({c=> self.cargarCosa(c)})
+    }
     
     method  peso() = 1000 + cosasCargadas.sum({c => c.peso()})
 
@@ -27,4 +34,5 @@ object camion {
     method puedeCircularEnRuta(nivelMaximo) = !self.estaExcedidoDePeso() and self.cosasQueSuperanPeligrosidad(nivelMaximo).isEmpty()
     method algunaCargaPesaEntre (min, max) = cosasCargadas.any ({c => c.peso().between(min, max)})
     method cargaMasPesada () = cosasCargadas.max({c => c.peso()})
+    method cantidadTotalDeBultos() = cosasCargadas.sum({c=> c.bultos()})
 }
